@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="student" doc:id="59616cba-16b4-4736-8402-cf25cad69795" >
+		<set-variable value="#[attributes.localAddress]" doc:name="Set Variable" doc:id="7baa083f-afe2-433b-a493-68c63e69aebc" variableName="LocalIp"/>
+		<db:select doc:name="Select_student_data" doc:id="9eb1ea7b-f135-4f64-a37c-e203c9c8223b" config-ref="Database_Config">
+			<db:sql ><![CDATA[SELECT * FROM student]]></db:sql>
+		</db:select>
+		<choice doc:name="Choice" doc:id="dfe5d240-156b-40d6-83cb-372eb8d25600" >
+			<when expression="#[sizeOf(payload) == 0]">
+				<ee:transform doc:name="Transform Message" doc:id="a587870d-35bf-4b23-a30a-62a42ab43b37" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"msg": "database is empty"]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="7b5e8947-2e63-46ef-ac89-8043447485b9" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"craft student api": {
+	
+"local Ip": vars.LocalIp,	
+"student list": payload	
+	
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</flow>
+</mule>

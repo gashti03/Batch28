@@ -1,0 +1,29 @@
+%dw 2.0
+
+type auto_59616cba_16b4_4736_8402_cf25cad69795_Input_Attributes = {|
+  clientCertificate?: {|
+    publicKey?: {|  |}, 
+    "type"?: String, 
+    encoded?: Binary
+  |}, 
+  headers: {|
+    C_ID?: String, 
+    C_Secret?: String
+  |}, 
+  listenerPath: String, 
+  method: String, 
+  queryParams: {|
+    Studentname?: String, 
+    Student_ID?: Number
+  |}, 
+  queryString: String, 
+  relativePath: String, 
+  remoteAddress: String, 
+  requestPath: String, 
+  requestUri: String, 
+  scheme: String, 
+  uriParams: {|  |}, 
+  version: String, 
+  localAddress: String
+|}
+
