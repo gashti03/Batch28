@@ -6,6 +6,7 @@
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="student" doc:id="59616cba-16b4-4736-8402-cf25cad69795" >
+		<logger level="INFO" doc:name="flow start" doc:id="3ca6db1f-b7a8-431b-a233-92ccb8bbd761" message='#["flow start::" ++ now ()]'/>
 		<set-variable value="#[attributes.localAddress]" doc:name="Set Variable" doc:id="7baa083f-afe2-433b-a493-68c63e69aebc" variableName="LocalIp"/>
 		<db:select doc:name="Select_student_data" doc:id="9eb1ea7b-f135-4f64-a37c-e203c9c8223b" config-ref="Database_Config">
 			<db:sql ><![CDATA[SELECT * FROM student]]></db:sql>
